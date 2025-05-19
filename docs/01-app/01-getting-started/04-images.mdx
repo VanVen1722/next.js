@@ -1,3 +1,77 @@
+import React, { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
+
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const numbers = Array.from({ length: 10 }, (_, i) => i.toString());
+const objects = [
+  { name: 'Toothbrush', image: '🪥' },
+  { name: 'Brush', image: '🖌️' },
+  { name: 'Chair', image: '🪑' },
+  { name: 'Cup', image: '☕' },
+  { name: 'Ball', image: '⚽' },
+  { name: 'Car', image: '🚗' },
+  { name: 'Apple', image: '🍎' },
+  { name: 'Dog', image: '🐶' },
+  { name: 'Cat', image: '🐱' }
+];
+
+export default function KidsLearningApp() {
+  const [currentLetter, setCurrentLetter] = useState('A');
+  const [currentNumber, setCurrentNumber] = useState('1');
+  const [currentObject, setCurrentObject] = useState(objects[0]);
+
+  return (
+    <div className="flex flex-col items-center p-6 gap-6">
+      <h1 className="text-4xl font-bold">Learning App for Kids</h1>
+
+      {/* Alphabet Section */}
+      <Card className="w-full md:w-2/3 p-4">
+        <CardContent>
+          <h2 className="text-2xl font-semibold mb-4">Learn the Alphabet</h2>
+          <div className="grid grid-cols-6 gap-2">
+            {letters.map((letter) => (
+              <Button key={letter} onClick={() => setCurrentLetter(letter)}>{letter}</Button>
+            ))}
+          </div>
+          <motion.div className="text-6xl my-6" animate={{ scale: [0.8, 1.2, 1] }}>
+            {currentLetter}
+          </motion.div>
+        </CardContent>
+      </Card>
+
+      {/* Numbers Section */}
+      <Card className="w-full md:w-2/3 p-4">
+        <CardContent>
+          <h2 className="text-2xl font-semibold mb-4">Learn Numbers</h2>
+          <div className="grid grid-cols-5 gap-2">
+            {numbers.map((number) => (
+              <Button key={number} onClick={() => setCurrentNumber(number)}>{number}</Button>
+            ))}
+          </div>
+          <motion.div className="text-6xl my-6" animate={{ scale: [0.8, 1.2, 1] }}>
+            {currentNumber}
+          </motion.div>
+        </CardContent>
+      </Card>
+
+      {/* Objects Section */}
+      <Card className="w-full md:w-2/3 p-4">
+        <CardContent>
+          <h2 className="text-2xl font-semibold mb-4">Learn Objects</h2>
+          <Button onClick={() => setCurrentObject(objects[Math.floor(Math.random() * objects.length)])}>
+            Show Random Object
+          </Button>
+          <motion.div className="text-6xl my-6" animate={{ rotate: [0, 10, -10, 0] }}>
+            {currentObject.image}
+          </motion.div>
+          <h3 className="text-xl font-semibold">{currentObject.name}</h3>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
 ---
 title: How to optimize images
 nav_title: Images
